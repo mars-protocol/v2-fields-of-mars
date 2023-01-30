@@ -32,7 +32,8 @@ keywords      = ["mars", "cosmos", "cosmwasm"]
 [workspace.dependencies]
 anyhow            = "1.0.66"
 cosmwasm-schema   = "1.1.9"
-cosmwasm-std      = "1.1.9"
+# FIXME: use exact version for now. 1.2.1 contains new Decimal functions which cause compilation errors. `=` can be removed after Decimal migration.
+cosmwasm-std      = "=1.1.9"
 cw2               = "1.0.0"
 cw721             = "0.16.0"
 cw721-base        = { version = "0.16.0", features = ["library"] }
