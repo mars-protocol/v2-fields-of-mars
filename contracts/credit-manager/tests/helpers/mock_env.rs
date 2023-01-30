@@ -16,10 +16,7 @@ use mars_mock_vault::{
     contract::DEFAULT_VAULT_TOKEN_PREFUND, msg::InstantiateMsg as VaultInstantiateMsg,
 };
 use mars_owner::OwnerUpdate;
-use mars_red_bank_types::red_bank::{
-    QueryMsg::{UserCollateral, UserDebt},
-    UserCollateralResponse, UserDebtResponse,
-};
+use mars_red_bank_types::red_bank::{QueryMsg::UserDebt, UserDebtResponse};
 use mars_rover::{
     adapters::{
         account_nft::{
