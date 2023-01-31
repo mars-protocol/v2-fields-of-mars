@@ -31,7 +31,7 @@ checksum = "2cb2f989d18dd141ab8ae82f64d1a8cdd37e0840f73a406896cf5e99502fab61"
 [[package]]
 name = "apollo-utils"
 version = "0.1.0"
-source = "git+https://github.com/apollodao/apollo-utils.git?rev=bfd1abd8cd9716dccad3e74aeb3704cad9f1f41a#bfd1abd8cd9716dccad3e74aeb3704cad9f1f41a"
+source = "git+https://github.com/apollodao/apollo-utils.git?rev=e12b38158778f6279525c4be96789a5f488d2659#e12b38158778f6279525c4be96789a5f488d2659"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
@@ -41,9 +41,9 @@ dependencies = [
 
 [[package]]
 name = "async-trait"
-version = "0.1.60"
+version = "0.1.63"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "677d1d8ab452a3936018a687b20e6f7cf5363d713b732b8884001317b0e48aa3"
+checksum = "eff18d764974428cf3a9328e23fc5c986f5fbed46e6cd4cdf42544df5d297ec1"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -161,9 +161,9 @@ dependencies = [
 
 [[package]]
 name = "bumpalo"
-version = "3.11.1"
+version = "3.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "572f695136211188308f16ad2ca5c851a712c464060ae6974944458eb83880ba"
+checksum = "0d261e256854913907f67ed06efbc3338dfe6179796deefc1ff763fc1aee5535"
 
 [[package]]
 name = "byteorder"
@@ -249,7 +249,7 @@ version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "20b42021d8488665b1a0d9748f1f81df7235362d194f44481e2e61bf376b77b4"
 dependencies = [
- "prost 0.11.5",
+ "prost 0.11.6",
  "prost-types",
  "tendermint-proto",
 ]
@@ -276,9 +276,9 @@ dependencies = [
 
 [[package]]
 name = "cosmwasm-crypto"
-version = "1.1.9"
+version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "227315dc11f0bb22a273d0c43d3ba8ef52041c42cf959f09045388a89c57e661"
+checksum = "7fecd74d3a0041114110d1260f77fcb644c5d2403549b37096c44f0e643a5177"
 dependencies = [
  "digest 0.10.6",
  "ed25519-zebra",
@@ -289,18 +289,18 @@ dependencies = [
 
 [[package]]
 name = "cosmwasm-derive"
-version = "1.1.9"
+version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6fca30d51f7e5fbfa6440d8b10d7df0231bdf77e97fd3fe5d0cb79cc4822e50c"
+checksum = "d5abeeb891e6d0098402e4d3d042f90451db52651d2fe14b170e69a1dd3e4115"
 dependencies = [
  "syn",
 ]
 
 [[package]]
 name = "cosmwasm-schema"
-version = "1.1.9"
+version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04135971e2c3b867eb793ca4e832543c077dbf72edaef7672699190f8fcdb619"
+checksum = "9118e36843df6648fd0a626c46438f87038f296ec750cef3832cafc483c483f9"
 dependencies = [
  "cosmwasm-schema-derive",
  "schemars",
@@ -311,9 +311,9 @@ dependencies = [
 
 [[package]]
 name = "cosmwasm-schema-derive"
-version = "1.1.9"
+version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a06c8f516a13ae481016aa35f0b5c4652459e8aee65b15b6fb51547a07cea5a0"
+checksum = "78d6fc9854ac14e46cb69b0f396547893f93d2847aef975950ebbe73342324f3"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -418,13 +418,13 @@ dependencies = [
 [[package]]
 name = "cw-dex"
 version = "0.0.1"
-source = "git+https://github.com/apollodao/cw-dex?rev=b9d18cfbba8aa09ae4ee9459d308cda87ae5ffb3#b9d18cfbba8aa09ae4ee9459d308cda87ae5ffb3"
+source = "git+https://github.com/apollodao/cw-dex?rev=1ce5566963851f7cab0eed117240654f3cb2d78d#1ce5566963851f7cab0eed117240654f3cb2d78d"
 dependencies = [
  "apollo-utils",
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw-asset",
- "cw-storage-plus 0.16.0",
+ "cw-storage-plus 1.0.1",
  "cw-utils 0.11.1",
  "cw-utils 0.16.0",
  "cw20",
@@ -655,9 +655,9 @@ dependencies = [
 
 [[package]]
 name = "ed25519"
-version = "1.5.2"
+version = "1.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e9c280362032ea4203659fc489832d0204ef09f247a0506f170dafcac08c369"
+checksum = "91cff35c70bba8a626e3185d8cd48cc11b5437e1a5bcd15b9b5fa3c64b6dfee7"
 dependencies = [
  "signature",
 ]
@@ -691,9 +691,9 @@ dependencies = [
 
 [[package]]
 name = "either"
-version = "1.8.0"
+version = "1.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797"
+checksum = "7fcaabb2fef8c910e7f4c7ce9f67a1283a1715879a7c230ca9d6d1ae31f16d91"
 
 [[package]]
 name = "elliptic-curve"
@@ -766,9 +766,9 @@ checksum = "c8cbd1169bd7b4a0a20d92b9af7a7e0422888bd38a6f5ec29c1fd8c1558a272e"
 
 [[package]]
 name = "futures"
-version = "0.3.25"
+version = "0.3.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38390104763dc37a5145a53c29c63c1290b5d316d6086ec32c293f6736051bb0"
+checksum = "13e2792b0ff0340399d58445b88fd9770e3489eff258a4cbc1523418f12abf84"
 dependencies = [
  "futures-channel",
  "futures-core",
@@ -780,9 +780,9 @@ dependencies = [
 
 [[package]]
 name = "futures-channel"
-version = "0.3.25"
+version = "0.3.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "52ba265a92256105f45b719605a571ffe2d1f0fea3807304b522c1d778f79eed"
+checksum = "2e5317663a9089767a1ec00a487df42e0ca174b61b4483213ac24448e4664df5"
 dependencies = [
  "futures-core",
  "futures-sink",
@@ -790,33 +790,33 @@ dependencies = [
 
 [[package]]
 name = "futures-core"
-version = "0.3.25"
+version = "0.3.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "04909a7a7e4633ae6c4a9ab280aeb86da1236243a77b694a49eacd659a4bd3ac"
+checksum = "ec90ff4d0fe1f57d600049061dc6bb68ed03c7d2fbd697274c41805dcb3f8608"
 
 [[package]]
 name = "futures-io"
-version = "0.3.25"
+version = "0.3.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "00f5fb52a06bdcadeb54e8d3671f8888a39697dcb0b81b23b55174030427f4eb"
+checksum = "bfb8371b6fb2aeb2d280374607aeabfc99d95c72edfe51692e42d3d7f0d08531"
 
 [[package]]
 name = "futures-sink"
-version = "0.3.25"
+version = "0.3.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "39c15cf1a4aa79df40f1bb462fb39676d0ad9e366c2a33b590d7c66f4f81fcf9"
+checksum = "f310820bb3e8cfd46c80db4d7fb8353e15dfff853a127158425f31e0be6c8364"
 
 [[package]]
 name = "futures-task"
-version = "0.3.25"
+version = "0.3.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2ffb393ac5d9a6eaa9d3fdf37ae2776656b706e200c8e16b1bdb227f5198e6ea"
+checksum = "dcf79a1bf610b10f42aea489289c5a2c478a786509693b80cd39c44ccd936366"
 
 [[package]]
 name = "futures-util"
-version = "0.3.25"
+version = "0.3.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "197676987abd2f9cadff84926f410af1c183608d36641465df73ae8211dc65d6"
+checksum = "9c1d6de3acfef38d2be4b1f543f553131788603495be83da675e180c8d6b7bd1"
 dependencies = [
  "futures-core",
  "futures-sink",
@@ -850,9 +850,9 @@ dependencies = [
 
 [[package]]
 name = "glob"
-version = "0.3.0"
+version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
+checksum = "d2fabcfbdc87f4758337ca535fb41a6d701b65693ce38287d856d1674551ec9b"
 
 [[package]]
 name = "group"
@@ -1043,8 +1043,8 @@ dependencies = [
  "mars-mock-oracle",
  "mars-mock-red-bank",
  "mars-mock-vault",
- "mars-outpost",
  "mars-owner",
+ "mars-red-bank-types",
  "mars-rover",
  "mars-swapper-mock",
  "mars-zapper-mock",
@@ -1086,7 +1086,7 @@ dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw-storage-plus 1.0.1",
- "mars-outpost",
+ "mars-red-bank-types",
 ]
 
 [[package]]
@@ -1096,7 +1096,7 @@ dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw-storage-plus 1.0.1",
- "mars-outpost",
+ "mars-red-bank-types",
 ]
 
 [[package]]
@@ -1115,20 +1115,11 @@ dependencies = [
 [[package]]
 name = "mars-osmosis"
 version = "1.0.0"
+source = "git+https://github.com/mars-protocol/red-bank?rev=3e57365d82b96967ef1bc7ec183c4a86bc88d5e7#3e57365d82b96967ef1bc7ec183c4a86bc88d5e7"
 dependencies = [
  "cosmwasm-std",
- "osmosis-std 0.13.2",
+ "osmosis-std 0.14.0",
  "serde",
-]
-
-[[package]]
-name = "mars-outpost"
-version = "1.0.0"
-dependencies = [
- "cosmwasm-schema",
- "cosmwasm-std",
- "mars-owner",
- "thiserror",
 ]
 
 [[package]]
@@ -1145,6 +1136,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "mars-red-bank-types"
+version = "1.0.0"
+source = "git+https://github.com/mars-protocol/red-bank?rev=3e57365d82b96967ef1bc7ec183c4a86bc88d5e7#3e57365d82b96967ef1bc7ec183c4a86bc88d5e7"
+dependencies = [
+ "cosmwasm-schema",
+ "cosmwasm-std",
+ "mars-owner",
+ "mars-utils",
+ "thiserror",
+]
+
+[[package]]
 name = "mars-rover"
 version = "1.0.0"
 dependencies = [
@@ -1157,8 +1160,8 @@ dependencies = [
  "cw721-base",
  "mars-health",
  "mars-math",
- "mars-outpost",
  "mars-owner",
+ "mars-red-bank-types",
  "schemars",
  "serde",
  "thiserror",
@@ -1203,9 +1206,18 @@ dependencies = [
  "mars-owner",
  "mars-rover",
  "mars-swapper-base",
- "osmosis-std 0.13.2",
- "osmosis-testing",
+ "osmosis-std 0.14.0",
+ "osmosis-test-tube",
  "schemars",
+ "thiserror",
+]
+
+[[package]]
+name = "mars-utils"
+version = "1.0.0"
+source = "git+https://github.com/mars-protocol/red-bank?rev=3e57365d82b96967ef1bc7ec183c4a86bc88d5e7#3e57365d82b96967ef1bc7ec183c4a86bc88d5e7"
+dependencies = [
+ "cosmwasm-std",
  "thiserror",
 ]
 
@@ -1243,7 +1255,7 @@ dependencies = [
  "cw-utils 0.16.0",
  "cw2 1.0.1",
  "mars-zapper-base",
- "osmosis-testing",
+ "osmosis-test-tube",
 ]
 
 [[package]]
@@ -1260,9 +1272,9 @@ checksum = "68354c5c6bd36d73ff3feceb05efa59b6acb7626617f4962be322a825e61f79a"
 
 [[package]]
 name = "nom"
-version = "7.1.2"
+version = "7.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e5507769c4919c998e69e49c839d9dc6e693ede4cc4290d6ad8b41d4f09c548c"
+checksum = "d273983c5a657a70a3e8f2a01329822f3b8c8172b73826411a55751e404a0a4a"
 dependencies = [
  "memchr",
  "minimal-lexical",
@@ -1328,12 +1340,12 @@ checksum = "9b7820b9daea5457c9f21c69448905d723fbd21136ccf521748f23fd49e723ee"
 [[package]]
 name = "osmosis-std"
 version = "0.12.0"
-source = "git+https://github.com/apollodao/osmosis-rust?rev=52ca8eaa4b2926fea01a68f4d7e7253ad29d88b3#52ca8eaa4b2926fea01a68f4d7e7253ad29d88b3"
+source = "git+https://github.com/apollodao/osmosis-rust.git?branch=osmosis-v13#38a48533ed88243070b105cb9085e34c2b0c4eeb"
 dependencies = [
  "chrono",
  "cosmwasm-std",
  "osmosis-std-derive 0.12.0",
- "prost 0.11.5",
+ "prost 0.11.6",
  "prost-types",
  "schemars",
  "serde",
@@ -1343,12 +1355,29 @@ dependencies = [
 [[package]]
 name = "osmosis-std"
 version = "0.13.2"
-source = "git+https://github.com/osmosis-labs/osmosis-rust?rev=5f2493aa13569167431add6282916683b4aaf3c8#5f2493aa13569167431add6282916683b4aaf3c8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "10d6fe6ac7fcba45ed61d738091d33c838c4cabbcf4892dc7aa56d19d39cc976"
 dependencies = [
  "chrono",
  "cosmwasm-std",
  "osmosis-std-derive 0.13.2",
- "prost 0.11.5",
+ "prost 0.11.6",
+ "prost-types",
+ "schemars",
+ "serde",
+ "serde-cw-value",
+]
+
+[[package]]
+name = "osmosis-std"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2fc0a9075efd64ed5a8be3bf134cbf1080570d68384f2ad58ffaac6c00d063fd"
+dependencies = [
+ "chrono",
+ "cosmwasm-std",
+ "osmosis-std-derive 0.13.2",
+ "prost 0.11.6",
  "prost-types",
  "schemars",
  "serde",
@@ -1358,7 +1387,7 @@ dependencies = [
 [[package]]
 name = "osmosis-std-derive"
 version = "0.12.0"
-source = "git+https://github.com/apollodao/osmosis-rust?rev=52ca8eaa4b2926fea01a68f4d7e7253ad29d88b3#52ca8eaa4b2926fea01a68f4d7e7253ad29d88b3"
+source = "git+https://github.com/apollodao/osmosis-rust.git?branch=osmosis-v13#38a48533ed88243070b105cb9085e34c2b0c4eeb"
 dependencies = [
  "itertools",
  "proc-macro2",
@@ -1369,7 +1398,8 @@ dependencies = [
 [[package]]
 name = "osmosis-std-derive"
 version = "0.13.2"
-source = "git+https://github.com/osmosis-labs/osmosis-rust?rev=5f2493aa13569167431add6282916683b4aaf3c8#5f2493aa13569167431add6282916683b4aaf3c8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a455e262a6fdfd3914f3a4e11e6bc0ce491901cb9d507d7856d7ef6e129e90c6"
 dependencies = [
  "itertools",
  "proc-macro2",
@@ -1378,18 +1408,20 @@ dependencies = [
 ]
 
 [[package]]
-name = "osmosis-testing"
-version = "0.13.2"
-source = "git+https://github.com/osmosis-labs/osmosis-rust?rev=5f2493aa13569167431add6282916683b4aaf3c8#5f2493aa13569167431add6282916683b4aaf3c8"
+name = "osmosis-test-tube"
+version = "14.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "37e7d470a607f4016906fee20ff51275b399ffad9903240dc462c0f5226650c7"
 dependencies = [
  "base64",
  "bindgen",
  "cosmrs",
  "cosmwasm-std",
  "osmosis-std 0.13.2",
- "prost 0.11.5",
+ "prost 0.11.6",
  "serde",
  "serde_json",
+ "test-tube",
  "thiserror",
 ]
 
@@ -1438,9 +1470,9 @@ dependencies = [
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.49"
+version = "1.0.50"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "57a8eca9f9c4ffde41714334dee777596264c7825420f521abc92b5b5deb63a5"
+checksum = "6ef7d57beacfaf2d8aee5937dab7b7f28de3cb8b1828479bb5de2a7106f2bae2"
 dependencies = [
  "unicode-ident",
 ]
@@ -1457,12 +1489,12 @@ dependencies = [
 
 [[package]]
 name = "prost"
-version = "0.11.5"
+version = "0.11.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c01db6702aa05baa3f57dec92b8eeeeb4cb19e894e73996b32a4093289e54592"
+checksum = "21dc42e00223fc37204bd4aa177e69420c604ca4a183209a8f9de30c6d934698"
 dependencies = [
  "bytes",
- "prost-derive 0.11.5",
+ "prost-derive 0.11.6",
 ]
 
 [[package]]
@@ -1480,9 +1512,9 @@ dependencies = [
 
 [[package]]
 name = "prost-derive"
-version = "0.11.5"
+version = "0.11.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c8842bad1a5419bca14eac663ba798f6bc19c413c2fdceb5f3ba3b0932d96720"
+checksum = "8bda8c0881ea9f722eb9629376db3d0b903b462477c1aafcb0566610ac28ac5d"
 dependencies = [
  "anyhow",
  "itertools",
@@ -1493,12 +1525,12 @@ dependencies = [
 
 [[package]]
 name = "prost-types"
-version = "0.11.5"
+version = "0.11.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "017f79637768cde62820bc2d4fe0e45daaa027755c323ad077767c6c5f173091"
+checksum = "a5e0526209433e96d83d750dd81a99118edbc55739e7e61a46764fd2ad537788"
 dependencies = [
  "bytes",
- "prost 0.11.5",
+ "prost 0.11.6",
 ]
 
 [[package]]
@@ -1527,9 +1559,9 @@ dependencies = [
 
 [[package]]
 name = "regex"
-version = "1.7.0"
+version = "1.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e076559ef8e241f2ae3479e36f97bd5741c0330689e217ad51ce2c76808b868a"
+checksum = "48aaa5748ba571fb95cd2c85c09f629215d3a6ece942baa100950af03a34f733"
 dependencies = [
  "aho-corasick",
  "memchr",
@@ -1834,7 +1866,7 @@ dependencies = [
  "k256",
  "num-traits",
  "once_cell",
- "prost 0.11.5",
+ "prost 0.11.6",
  "prost-types",
  "ripemd160",
  "serde",
@@ -1860,7 +1892,7 @@ dependencies = [
  "flex-error",
  "num-derive",
  "num-traits",
- "prost 0.11.5",
+ "prost 0.11.6",
  "prost-types",
  "serde",
  "serde_bytes",
@@ -1870,11 +1902,27 @@ dependencies = [
 
 [[package]]
 name = "termcolor"
-version = "1.1.3"
+version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bab24d30b911b2376f3a13cc2cd443142f0c81dda04c118693e35b3835757755"
+checksum = "be55cf8942feac5c765c2c993422806843c9a9a45d4d5c407ad6dd2ea95eb9b6"
 dependencies = [
  "winapi-util",
+]
+
+[[package]]
+name = "test-tube"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2791215b77f72c219df4d3e95d78539ee66950a0449961ba6d0ab1c7b538673f"
+dependencies = [
+ "base64",
+ "cosmrs",
+ "cosmwasm-std",
+ "osmosis-std 0.13.2",
+ "prost 0.11.6",
+ "serde",
+ "serde_json",
+ "thiserror",
 ]
 
 [[package]]
@@ -2018,9 +2066,9 @@ checksum = "1c38c045535d93ec4f0b4defec448e4291638ee608530863b1e2ba115d4fff7f"
 
 [[package]]
 name = "which"
-version = "4.3.0"
+version = "4.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1c831fbbee9e129a8cf93e7747a82da9d95ba8e16621cae60ec2cdc849bacb7b"
+checksum = "2441c784c52b289a054b7201fc93253e288f094e2f4be9058343127c4226a269"
 dependencies = [
  "either",
  "libc",
