@@ -18,17 +18,16 @@ doctest = false
 backtraces = ["cosmwasm-std/backtraces"]
 
 [dependencies]
-cosmwasm-schema         = { workspace = true }
-cosmwasm-std            = { workspace = true }
-cosmwasm-vault-standard = { workspace = true }
-cw721                   = { workspace = true }
-cw721-base              = { workspace = true }
-cw-storage-plus         = { workspace = true }
-cw-utils                = { workspace = true }
-mars-health             = { workspace = true }
-mars-math               = { workspace = true }
-mars-red-bank-types     = { workspace = true }
-mars-owner              = { workspace = true }
-schemars                = { workspace = true }
-serde                   = { workspace = true }
-thiserror               = { workspace = true }
+cosmwasm-schema     = { workspace = true }
+cosmwasm-std        = { workspace = true }
+cw-vault-standard   = { workspace = true }
+cw721               = { workspace = true }
+cw721-base          = { workspace = true }
+cw-storage-plus     = { workspace = true }
+cw-utils            = { workspace = true }
+mars-health         = { workspace = true }
+mars-red-bank-types = { workspace = true }
+mars-owner          = { workspace = true }
+schemars            = { workspace = true }
+serde               = { workspace = true }
+thiserror           = { workspace = true }

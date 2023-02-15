@@ -5,7 +5,8 @@ use cosmwasm_std::{
     to_binary, Addr, Api, BalanceResponse, BankQuery, Coin, CosmosMsg, QuerierWrapper,
     QueryRequest, StdError, StdResult, SubMsg, Uint128, WasmMsg, WasmQuery,
 };
-use cosmwasm_vault_standard::{
+use cw_utils::Duration;
+use cw_vault_standard::{
     extensions::{
         force_unlock::ForceUnlockExecuteMsg::{ForceRedeem, ForceWithdrawUnlocking},
         lockup::{
@@ -15,11 +16,9 @@ use cosmwasm_vault_standard::{
             UnlockingPosition,
         },
     },
-    msg::{ExtensionExecuteMsg, ExtensionQueryMsg, VaultStandardExecuteMsg, VaultStandardQueryMsg},
-    VaultInfoResponse,
+    ExtensionExecuteMsg, ExtensionQueryMsg, VaultInfoResponse, VaultStandardExecuteMsg,
+    VaultStandardQueryMsg,
 };
-use cw_utils::Duration;
-use mars_math::FractionMath;
 
 use crate::{adapters::oracle::Oracle, traits::Stringify};
 

@@ -6,9 +6,8 @@ use cosmwasm_std::{
 };
 use cw721::OwnerOfResponse;
 use cw721_base::QueryMsg;
-use mars_math::{FractionMath, Fractional};
 use mars_rover::{
-    error::{ContractError, ContractResult},
+    error::{ContractError, ContractResult, TempCheckMulFracError},
     msg::{execute::CallbackMsg, ExecuteMsg},
 };
 
@@ -127,7 +126,9 @@ pub fn debt_shares_to_amount(
     let total_debt_amount = red_bank.query_debt(&deps.querier, rover_addr, denom)?;
 
     // Amount of debt for token's position. Rounded up to favor participants in the debt pool.
-    let amount = total_debt_amount.checked_mul_ceil(Fractional(shares, total_debt_shares))?;
+    let amount = total_debt_amount
+        .checked_mul_ceil((shares, total_debt_shares))
+        .map_err(|_| TempCheckMulFracError {})?;
 
     Ok(Coin {
         denom: denom.to_string(),

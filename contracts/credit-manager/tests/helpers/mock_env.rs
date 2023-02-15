@@ -2,11 +2,11 @@ use std::mem::take;
 
 use anyhow::Result as AnyResult;
 use cosmwasm_std::{coins, testing::MockApi, Addr, Coin, Decimal, Uint128};
-use cosmwasm_vault_standard::{
+use cw_multi_test::{App, AppResponse, BankSudo, BasicApp, Executor, SudoMsg};
+use cw_vault_standard::{
     extensions::lockup::{LockupQueryMsg, UnlockingPosition},
     msg::{ExtensionQueryMsg, VaultStandardQueryMsg::VaultExtension},
 };
-use cw_multi_test::{App, AppResponse, BankSudo, BasicApp, Executor, SudoMsg};
 use mars_health::HealthResponse;
 use mars_mock_oracle::msg::{
     CoinPrice, ExecuteMsg as OracleExecuteMsg, InstantiateMsg as OracleInstantiateMsg,

@@ -3,10 +3,9 @@ use std::ops::Add;
 use cosmwasm_std::{
     Coin, CosmosMsg, Decimal, DepsMut, Env, QuerierWrapper, Response, StdError, Storage, Uint128,
 };
-use mars_math::FractionMath;
 use mars_rover::{
     adapters::oracle::Oracle,
-    error::{ContractError, ContractResult},
+    error::{ContractError, ContractResult, TempCheckMulFracError},
     msg::execute::CallbackMsg,
     traits::Stringify,
 };
@@ -84,22 +83,30 @@ pub fn calculate_liquidation(
 
     // Ensure debt amount does not exceed close factor % of the liquidatee's total debt value
     let close_factor = MAX_CLOSE_FACTOR.load(deps.storage)?;
-    let max_close_value = health.total_debt_value.checked_mul_floor(close_factor)?;
+    let max_close_value = health
+        .total_debt_value
+        .checked_mul_floor(close_factor)
+        .map_err(|_| TempCheckMulFracError {})?;
     let oracle = ORACLE.load(deps.storage)?;
     let debt_res = oracle.query_price(&deps.querier, &debt_coin.denom)?;
-    let max_close_amount = max_close_value.checked_div_floor(debt_res.price)?;
+    let max_close_amount =
+        max_close_value.checked_div_floor(debt_res.price).map_err(|_| TempCheckMulFracError {})?;
 
     // Calculate the maximum debt possible to repay given liquidatee's request coin balance
     // FORMULA: debt amount = request value / (1 + liquidation bonus %) / debt price
     let request_res = oracle.query_price(&deps.querier, request_coin)?;
-    let max_request_value = request_coin_balance.checked_mul_floor(request_res.price)?;
+    let max_request_value = request_coin_balance
+        .checked_mul_floor(request_res.price)
+        .map_err(|_| TempCheckMulFracError {})?;
     let liq_bonus_rate = RED_BANK
         .load(deps.storage)?
         .query_market(&deps.querier, &debt_coin.denom)?
         .liquidation_bonus;
     let request_coin_adjusted_max_debt = max_request_value
-        .checked_div_floor(Decimal::one().add(liq_bonus_rate))?
-        .checked_div_floor(debt_res.price)?;
+        .checked_div_floor(Decimal::one().add(liq_bonus_rate))
+        .map_err(|_| TempCheckMulFracError {})?
+        .checked_div_floor(debt_res.price)
+        .map_err(|_| TempCheckMulFracError {})?;
 
     let final_debt_to_repay = *vec![
         debt_coin.amount,
@@ -114,9 +121,12 @@ pub fn calculate_liquidation(
     // Calculate exact request coin amount to give to liquidator
     // FORMULA: request amount = debt value * (1 + liquidation bonus %) / request coin price
     let request_amount = final_debt_to_repay
-        .checked_mul_floor(debt_res.price)?
-        .checked_mul_floor(liq_bonus_rate.add(Decimal::one()))?
-        .checked_div_floor(request_res.price)?;
+        .checked_mul_floor(debt_res.price)
+        .map_err(|_| TempCheckMulFracError {})?
+        .checked_mul_floor(liq_bonus_rate.add(Decimal::one()))
+        .map_err(|_| TempCheckMulFracError {})?
+        .checked_div_floor(request_res.price)
+        .map_err(|_| TempCheckMulFracError {})?;
 
     // (Debt Coin, Request Coin)
     let result = (

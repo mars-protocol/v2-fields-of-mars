@@ -1,8 +1,7 @@
 use cosmwasm_std::{Addr, Coin, Deps, StdResult, Storage, Uint128};
-use mars_math::FractionMath;
 use mars_rover::{
     adapters::vault::{Vault, VaultPositionAmount, VaultPositionUpdate},
-    error::{ContractError, ContractResult},
+    error::{ContractError, ContractResult, TempCheckMulFracError},
 };
 
 use crate::{
@@ -89,7 +88,9 @@ pub fn vault_utilization_in_deposit_cap_denom(
 
     Ok(Coin {
         denom: config.deposit_cap.denom,
-        amount: rover_vault_balance_value.checked_div_floor(deposit_cap_denom_price)?,
+        amount: rover_vault_balance_value
+            .checked_div_floor(deposit_cap_denom_price)
+            .map_err(|_| TempCheckMulFracError {})?,
     })
 }
 
