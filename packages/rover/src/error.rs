@@ -1,8 +1,9 @@
+use std::fmt;
+
 use cosmwasm_std::{
     CheckedFromRatioError, CheckedMultiplyRatioError, Coin, DecimalRangeExceeded, OverflowError,
     StdError, Uint128,
 };
-use mars_math::CheckedMultiplyFractionError;
 use mars_owner::OwnerError;
 use thiserror::Error;
 
@@ -37,7 +38,7 @@ pub enum ContractError {
     CheckedMultiply(#[from] CheckedMultiplyRatioError),
 
     #[error("{0}")]
-    CheckedMultiplyFraction(#[from] CheckedMultiplyFractionError),
+    CheckedMultiplyFraction(#[from] TempCheckMulFracError),
 
     #[error("{0}")]
     DecimalRangeExceeded(#[from] DecimalRangeExceeded),
@@ -134,4 +135,14 @@ pub enum ContractError {
 
     #[error("There is more time left on the lock period")]
     UnlockNotReady,
+}
+
+// Can be deleted after merged: https://github.com/CosmWasm/cosmwasm/pull/1608
+#[derive(Error, Debug, PartialEq)]
+pub struct TempCheckMulFracError {}
+
+impl fmt::Display for TempCheckMulFracError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "CheckedMultiplyFractionError")
+    }
 }

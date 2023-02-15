@@ -6,7 +6,6 @@ members = [
   "contracts/zapper/*",
   "packages/health",
   "packages/rover",
-  "packages/math",
 
   # Mock contracts
   "contracts/mock-oracle",
@@ -30,34 +29,31 @@ documentation = "https://docs.marsprotocol.io/"
 keywords      = ["mars", "cosmos", "cosmwasm"]
 
 [workspace.dependencies]
-anyhow            = "1.0.66"
-cosmwasm-schema   = "1.1.9"
-# FIXME: use exact version for now. 1.2.1 contains new Decimal functions which cause compilation errors. `=` can be removed after Decimal migration.
-cosmwasm-std      = "=1.1.9"
-cw2               = "1.0.0"
+anyhow            = "1.0.69"
+cosmwasm-schema   = "1.2.1"
+cosmwasm-std      = "1.2.1"
+cw2               = "1.0.1"
 cw721             = "0.16.0"
 cw721-base        = { version = "0.16.0", features = ["library"] }
 cw-item-set       = { version = "0.7.0", default-features = false, features = ["iterator"] }
-cw-multi-test     = "0.16.1"
-cw-utils          = "0.16.0"
+cw-multi-test     = "0.16.2"
+cw-utils          = "1.0.1"
 cw-storage-plus   = "1.0.1"
 itertools         = "0.10.5"
 osmosis-std       = "0.14.0"
 osmosis-test-tube = "14.1.1"
 schemars          = "0.8.11"
-serde             = { version = "1.0.150", default-features = false, features = ["derive"] }
-thiserror         = "1.0.37"
+serde             = { version = "1.0.152", default-features = false, features = ["derive"] }
+thiserror         = "1.0.38"
 
 # packages
-cosmwasm-vault-standard = { version = "0.1.0", features = ["lockup", "force-unlock"] }
-# FIXME: develop branch dependency till Apollo finish audit
-cw-dex                  = { git = "https://github.com/apollodao/cw-dex", rev = "1ce5566963851f7cab0eed117240654f3cb2d78d", features = ["osmosis"] }
-mars-health             = { version = "1.0.0", path = "./packages/health" }
-mars-math               = { version = "1.0.0", path = "./packages/math" }
-mars-osmosis            = { git = "https://github.com/mars-protocol/red-bank", rev = "3e57365d82b96967ef1bc7ec183c4a86bc88d5e7" }
-mars-red-bank-types     = { git = "https://github.com/mars-protocol/red-bank", rev = "3e57365d82b96967ef1bc7ec183c4a86bc88d5e7" }
-mars-owner              = "1.0.0"
-mars-rover              = { version = "1.0.0", path = "./packages/rover" }
+cw-dex              = { version = "0.1.1", features = ["osmosis"] }
+cw-vault-standard   = { version = "0.2.0", features = ["lockup", "force-unlock"] }
+mars-health         = { version = "1.0.0", path = "./packages/health" }
+mars-osmosis        = { git = "https://github.com/mars-protocol/red-bank", rev = "d2a4b12f21344f1b572c0b2f75da585a4d2cc003" }
+mars-red-bank-types = "1.0.0"
+mars-owner          = "1.0.0"
+mars-rover          = { version = "1.0.0", path = "./packages/rover" }
 
 # contracts
 mars-account-nft  = { version = "1.0.0", path = "./contracts/account-nft", features = ["library"] }

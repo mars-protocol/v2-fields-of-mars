@@ -1,9 +1,8 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, Api, Coin, QuerierWrapper, StdResult, Uint128};
-use mars_math::FractionMath;
 use mars_red_bank_types::oracle::{PriceResponse, QueryMsg};
 
-use crate::error::ContractResult;
+use crate::error::{ContractResult, TempCheckMulFracError};
 
 #[cw_serde]
 pub struct OracleBase<T>(T);
@@ -56,7 +55,10 @@ impl Oracle {
             .iter()
             .map(|coin| {
                 let res = self.query_price(querier, &coin.denom)?;
-                Ok(coin.amount.checked_mul_floor(res.price)?)
+                Ok(coin
+                    .amount
+                    .checked_mul_floor(res.price)
+                    .map_err(|_| TempCheckMulFracError {})?)
             })
             .collect::<ContractResult<Vec<_>>>()?
             .iter()

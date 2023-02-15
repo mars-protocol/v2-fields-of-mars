@@ -1,11 +1,10 @@
 use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Coin, Decimal, Deps, Env, Event, Response, Uint128};
 use mars_health::Health;
-use mars_math::FractionMath;
 use mars_red_bank_types::{oracle::PriceResponse, red_bank::Market};
 use mars_rover::{
     adapters::vault::VaultPosition,
-    error::{ContractError, ContractResult},
+    error::{ContractError, ContractResult, TempCheckMulFracError},
     msg::query::{DebtAmount, Positions},
     traits::Stringify,
 };
@@ -112,10 +111,12 @@ fn calculate_vaults_value(
         };
 
         max_ltv_adjusted_collateral = vault_coin_value
-            .checked_mul_floor(checked_vault_max_ltv)?
+            .checked_mul_floor(checked_vault_max_ltv)
+            .map_err(|_| TempCheckMulFracError {})?
             .checked_add(max_ltv_adjusted_collateral)?;
         liquidation_threshold_adjusted_collateral = vault_coin_value
-            .checked_mul_floor(config.liquidation_threshold)?
+            .checked_mul_floor(config.liquidation_threshold)
+            .map_err(|_| TempCheckMulFracError {})?
             .checked_add(liquidation_threshold_adjusted_collateral)?;
 
         // Unlocking positions denominated in underlying token
@@ -137,13 +138,16 @@ fn calculate_vaults_value(
         };
 
         for u in v.amount.unlocking().positions() {
-            let underlying_value = u.coin.amount.checked_mul_floor(price)?;
+            let underlying_value =
+                u.coin.amount.checked_mul_floor(price).map_err(|_| TempCheckMulFracError {})?;
             total_collateral_value = total_collateral_value.checked_add(underlying_value)?;
             max_ltv_adjusted_collateral = underlying_value
-                .checked_mul_floor(checked_base_max_ltv)?
+                .checked_mul_floor(checked_base_max_ltv)
+                .map_err(|_| TempCheckMulFracError {})?
                 .checked_add(max_ltv_adjusted_collateral)?;
             liquidation_threshold_adjusted_collateral = underlying_value
-                .checked_mul_floor(liquidation_threshold)?
+                .checked_mul_floor(liquidation_threshold)
+                .map_err(|_| TempCheckMulFracError {})?
                 .checked_add(liquidation_threshold_adjusted_collateral)?;
         }
     }
@@ -179,10 +183,12 @@ fn calculate_deposits_value(deps: &Deps, deposits: &[Coin]) -> ContractResult<Co
         } else {
             Decimal::zero()
         };
-        let max_ltv_adjusted = value.checked_mul_floor(checked_max_ltv)?;
+        let max_ltv_adjusted =
+            value.checked_mul_floor(checked_max_ltv).map_err(|_| TempCheckMulFracError {})?;
         max_ltv_adjusted_collateral = max_ltv_adjusted_collateral.checked_add(max_ltv_adjusted)?;
 
-        let liq_adjusted = value.checked_mul_floor(liquidation_threshold)?;
+        let liq_adjusted =
+            value.checked_mul_floor(liquidation_threshold).map_err(|_| TempCheckMulFracError {})?;
         liquidation_threshold_adjusted_collateral =
             liquidation_threshold_adjusted_collateral.checked_add(liq_adjusted)?;
     }
