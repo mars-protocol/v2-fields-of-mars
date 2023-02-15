@@ -32,29 +32,7 @@ const junoOsmoConfig = {
 }
 
 export const osmosisTestnetConfig: DeploymentConfig = {
-  allowedCoins: [
-    { denom: uosmo, priceSource: { fixed: { price: '1' } }, grantCreditLine: true },
-    {
-      denom: uatom,
-      priceSource: { arithmetic_twap: { pool_id: 1, window_size: 1800 } },
-      grantCreditLine: true,
-    },
-    {
-      denom: ujuno,
-      priceSource: { arithmetic_twap: { pool_id: 497, window_size: 1800 } },
-      grantCreditLine: true,
-    },
-    {
-      denom: gammPool1,
-      priceSource: { xyk_liquidity_token: { pool_id: 1 } },
-      grantCreditLine: false,
-    },
-    {
-      denom: gammPool497,
-      priceSource: { xyk_liquidity_token: { pool_id: 497 } },
-      grantCreditLine: false,
-    },
-  ],
+  allowedCoins: [uosmo, uatom, ujuno, gammPool1, gammPool497],
   chain: {
     baseDenom: uosmo,
     defaultGasPrice: 0.1,
@@ -103,7 +81,32 @@ export const osmosisTestnetConfig: DeploymentConfig = {
       ...junoOsmoConfig,
     },
   ],
+  swapperContractName: 'mars_swapper_osmosis',
+  zapperContractName: 'mars_zapper_osmosis',
   testActions: {
+    allowedCoinsConfig: [
+      { denom: uosmo, priceSource: { fixed: { price: '1' } }, grantCreditLine: true },
+      {
+        denom: uatom,
+        priceSource: { arithmetic_twap: { pool_id: 1, window_size: 1800 } },
+        grantCreditLine: true,
+      },
+      {
+        denom: ujuno,
+        priceSource: { arithmetic_twap: { pool_id: 497, window_size: 1800 } },
+        grantCreditLine: true,
+      },
+      {
+        denom: gammPool1,
+        priceSource: { xyk_liquidity_token: { pool_id: 1 } },
+        grantCreditLine: false,
+      },
+      {
+        denom: gammPool497,
+        priceSource: { xyk_liquidity_token: { pool_id: 497 } },
+        grantCreditLine: false,
+      },
+    ],
     vault: {
       depositAmount: '1000000',
       withdrawAmount: '1000000',

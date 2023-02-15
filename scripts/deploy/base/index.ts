@@ -5,22 +5,17 @@ import { wasmFile } from '../../utils/environment'
 
 export interface TaskRunnerProps {
   config: DeploymentConfig
-  swapperContractName: string
-  zapperContractName: string
+  label: string
 }
 
-export const taskRunner = async ({
-  config,
-  swapperContractName,
-  zapperContractName,
-}: TaskRunnerProps) => {
-  const deployer = await setupDeployer(config)
+export const taskRunner = async ({ config, label }: TaskRunnerProps) => {
+  const deployer = await setupDeployer(config, label)
   try {
     // Upload contracts
     await deployer.upload('accountNft', wasmFile('mars_account_nft'))
     await deployer.upload('mockVault', wasmFile('mars_mock_vault'))
-    await deployer.upload('swapper', wasmFile(swapperContractName))
-    await deployer.upload('zapper', wasmFile(zapperContractName))
+    await deployer.upload('swapper', wasmFile(config.swapperContractName))
+    await deployer.upload('zapper', wasmFile(config.zapperContractName))
     await deployer.upload('creditManager', wasmFile('mars_credit_manager'))
 
     // Instantiate contracts
@@ -30,7 +25,7 @@ export const taskRunner = async ({
     await deployer.instantiateCreditManager()
     await deployer.instantiateNftContract()
     await deployer.transferNftContractOwnership()
-    await deployer.saveDeploymentAddrsToFile()
+    await deployer.saveDeploymentAddrsToFile(label)
 
     // Test basic user flows
     if (config.testActions) {
@@ -57,6 +52,12 @@ export const taskRunner = async ({
         await rover.unzap(info.tokens.base_token)
       }
       await rover.refundAllBalances()
+    }
+
+    // If multisig is set, transfer ownership from deployer to multisig
+    if (config.multisigAddr) {
+      await deployer.updateCreditManagerOwner()
+      await deployer.updateSwapperOwner()
     }
 
     printYellow('COMPLETE')
