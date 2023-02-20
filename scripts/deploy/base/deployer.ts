@@ -34,6 +34,7 @@ import {
 } from '../../types/generated/mars-credit-manager/MarsCreditManager.client'
 import { InitOrUpdateAssetParams } from '../../types/generated/mars-mock-red-bank/MarsMockRedBank.types'
 import { kebabCase } from 'lodash'
+import { MarsMockOracleQueryClient } from '../../types/generated/mars-mock-oracle/MarsMockOracle.client'
 
 export class Deployer {
   constructor(
@@ -262,16 +263,21 @@ export class Deployer {
     }
 
     for (const coin of this.config.testActions?.allowedCoinsConfig ?? []) {
-      const msg = {
-        set_price_source: {
-          denom: coin.denom,
-          price_source: coin.priceSource,
-        },
+      const oQuery = new MarsMockOracleQueryClient(this.cwClient, this.config.oracle.addr)
+      try {
+        await oQuery.price({ denom: coin.denom })
+        printGray(`Price source already set for ${coin.denom}`)
+      } catch (e) {
+        const msg = {
+          set_price_source: {
+            denom: coin.denom,
+            price_source: coin.priceSource,
+          },
+        }
+        printBlue(`Setting price source for ${coin.denom}: ${JSON.stringify(coin.priceSource)}`)
+        const { client, addr } = await this.getOutpostsDeployer()
+        await client.execute(addr, this.config.oracle.addr, msg, 'auto')
       }
-
-      printBlue(`Setting price source for ${coin.denom}: ${JSON.stringify(coin.priceSource)}`)
-      const { client, addr } = await this.getOutpostsDeployer()
-      await client.execute(addr, this.config.oracle.addr, msg, 'auto')
     }
     this.storage.actions.oraclePricesSet = true
   }
