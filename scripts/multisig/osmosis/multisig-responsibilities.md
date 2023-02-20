@@ -10,7 +10,7 @@ The Osmosis multisig being used for this project is `osmo14w4x949nwcrqgfe53pxs3k
 
 1. Get the wasm binary executable on your local machine.
 
-   For address-provider, incentives, oracle, red-bank, rewards-collector contracts:
+   For account-nft, credit-manager, swapper, and zapper contracts:
 
    ```bash
    git clone https://github.com/mars-protocol/v2-fields-of-mars

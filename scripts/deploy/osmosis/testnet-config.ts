@@ -88,12 +88,12 @@ export const osmosisTestnetConfig: DeploymentConfig = {
       { denom: uosmo, priceSource: { fixed: { price: '1' } }, grantCreditLine: true },
       {
         denom: uatom,
-        priceSource: { arithmetic_twap: { pool_id: 1, window_size: 1800 } },
+        priceSource: { geometric_twap: { pool_id: 1, window_size: 1800 } },
         grantCreditLine: true,
       },
       {
         denom: ujuno,
-        priceSource: { arithmetic_twap: { pool_id: 497, window_size: 1800 } },
+        priceSource: { geometric_twap: { pool_id: 497, window_size: 1800 } },
         grantCreditLine: true,
       },
       {
