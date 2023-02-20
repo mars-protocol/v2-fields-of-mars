@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "deploy:osmosis": "yarn build && node build/deploy/osmosis",
+    "deploy:osmosis-testnet": "yarn build && node build/deploy/osmosis/testnet-deployer.js",
+    "deploy:osmosis-testnet-multisig": "yarn build && node build/deploy/osmosis/testnet-multisig.js",
+    "deploy:osmosis-mainnet": "yarn build && node build/deploy/osmosis/mainnet.js",
     "generate-types": "yarn rust-schema && tsc --project codegen-tsconfig.json && rm -rf types/generated && node build/codegen && node build/codegen/insertIgnores.js && yarn format",
     "rust-schema": "cd ../ && cargo make generate-all-schemas && cd scripts",
     "compile-wasm": "cd ../ && cargo make rust-optimizer && cd scripts",
@@ -25,13 +27,13 @@
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.18.6",
-    "@types/jest": "^29.2.6",
-    "@typescript-eslint/eslint-plugin": "^5.48.2",
-    "@typescript-eslint/parser": "^5.48.2",
-    "eslint": "^8.32.0",
+    "@types/jest": "^29.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
-    "jest": "^29.3.1",
-    "prettier": "^2.8.3",
-    "typescript": "^4.9.4"
+    "jest": "^29.4.3",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
   }
 }

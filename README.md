@@ -130,7 +130,7 @@ Requires building the wasm binaries for the contracts:
 docker run --rm -v "$(pwd)":/code \
   --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
   --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
-  cosmwasm/rust-optimizer:0.12.10
+  cosmwasm/rust-optimizer:0.12.11
 ```
 
 For Rust cw-multi tests + osmosis-testing suite (requires mars_swapper_osmosis.wasm from previous step):
@@ -138,18 +138,33 @@ For Rust cw-multi tests + osmosis-testing suite (requires mars_swapper_osmosis.w
 cargo test
 ```
 
-For Typescript end-to-end testnet deployment & tests against that deployment:
+For Typescript testnet deployment with the deployer address being the owner and admin of the contracts & end-to-end tests:
 ```shell
 cd scripts
 yarn install
-yarn deploy:osmosis
+yarn deploy:osmosis:testnet-deployer
+```
+
+For Typescript testnet deployment with the multisig address being the owner and admin of the contracts & end-to-end tests:
+```shell
+cd scripts
+yarn install
+yarn deploy:osmosis:testnet-multisig
+```
+
+For mainnet:
+```shell
+cd scripts
+yarn install
+yarn deploy:osmosis:mainnet
 ```
 
 ### Deployment
 
-Addresses published in [/scripts/deploy/addresses](https://github.com/mars-protocol/rover/tree/master/scripts/deploy/addresses)
-
-
+- osmosis-1 (TBD)
+- [osmo-test-4 with multisig owner](./scripts/deploy/addresses/osmo-test-4-testnet-multisig.json)
+- [osmo-test-4 with deployer owner](./scripts/deploy/addresses/osmo-test-4-testnet-deployer-owner.json)
+- 
 ## License
 
 Contents of this repository are open source under [GNU General Public License v3](./LICENSE) or later.
