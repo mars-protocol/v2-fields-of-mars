@@ -20,6 +20,7 @@ export const getAddress = async (wallet: DirectSecp256k1HdWallet) => {
 export const setupClient = async (config: DeploymentConfig, wallet: DirectSecp256k1HdWallet) => {
   const clientOption: SigningCosmWasmClientOptions = {
     gasPrice: GasPrice.fromString(`${config.chain.defaultGasPrice}${config.chain.baseDenom}`),
+    broadcastTimeoutMs: 10 * 60 * 1000, // 10 minutes. High given the rpc latency on testnet.
   }
   return await SigningCosmWasmClient.connectWithSigner(
     config.chain.rpcEndpoint,
