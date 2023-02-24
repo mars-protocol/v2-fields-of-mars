@@ -1,6 +1,9 @@
 # Rover
 A generalized credit protocol built on Mars lending market
 
+## Bug bounty
+A bug bounty is currently open for these contracts. [See details at Immunefi](https://immunefi.com/bounty/mars/).
+
 ## Overview
 
 DeFi lending protocols, such as Aave and Compound, typically require users to first deposit some collateral assets before they can borrow. Once deposited, this collateral is locked inside the lending market smart contracts; the users are not allowed to put them into productive use as they see fit.
