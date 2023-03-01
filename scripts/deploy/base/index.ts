@@ -11,15 +11,16 @@ export interface TaskRunnerProps {
 export const taskRunner = async ({ config, label }: TaskRunnerProps) => {
   const deployer = await setupDeployer(config, label)
   try {
-    // Upload contracts
     await deployer.upload('accountNft', wasmFile('mars_account_nft'))
-    await deployer.upload('mockVault', wasmFile('mars_mock_vault'))
     await deployer.upload('swapper', wasmFile(config.swapperContractName))
     await deployer.upload('zapper', wasmFile(config.zapperContractName))
     await deployer.upload('creditManager', wasmFile('mars_credit_manager'))
 
-    // Instantiate contracts
-    await deployer.instantiateMockVault()
+    if (config.testActions) {
+      await deployer.upload('mockVault', wasmFile('mars_mock_vault'))
+      await deployer.instantiateMockVault()
+    }
+
     await deployer.instantiateSwapper()
     await deployer.instantiateZapper()
     await deployer.instantiateCreditManager()

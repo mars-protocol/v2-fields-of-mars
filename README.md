@@ -1,4 +1,4 @@
-# Rover
+# Farm vaults
 A generalized credit protocol built on Mars lending market
 
 ## Bug bounty
