@@ -1,70 +1,66 @@
-import { setupDeployer } from './setupDeployer'
 import { printRed, printYellow } from '../../utils/chalk'
 import { DeploymentConfig } from '../../types/config'
-import { wasmFile } from '../../utils/environment'
+import { StargateClient } from '@cosmjs/stargate/build/stargateclient'
 
 export interface TaskRunnerProps {
   config: DeploymentConfig
   label: string
 }
 
-export const taskRunner = async ({ config, label }: TaskRunnerProps) => {
-  const deployer = await setupDeployer(config, label)
+export const taskRunner = async ({ config }: TaskRunnerProps) => {
   try {
-    await deployer.upload('accountNft', wasmFile('mars_account_nft'))
-    await deployer.upload('swapper', wasmFile(config.swapperContractName))
-    await deployer.upload('zapper', wasmFile(config.zapperContractName))
-    await deployer.upload('creditManager', wasmFile('mars_credit_manager'))
+    const client = await StargateClient.connect(config.chain.rpcEndpoint)
 
-    if (config.testActions) {
-      await deployer.upload('mockVault', wasmFile('mars_mock_vault'))
-      await deployer.instantiateMockVault()
-    }
+    const logs = await client.searchTx({
+      tags: [
+        {
+          key: 'wasm._contract_address',
+          value: 'osmo1f2m24wktq0sw3c0lexlg7fv4kngwyttvzws3a3r3al9ld2s2pvds87jqvf',
+        },
+        { key: 'wasm.action', value: 'vault/request_unlock' },
+      ],
+    })
 
-    await deployer.instantiateSwapper()
-    await deployer.instantiateZapper()
-    await deployer.instantiateCreditManager()
-    await deployer.instantiateNftContract()
-    await deployer.transferNftContractOwnership()
-    await deployer.saveDeploymentAddrsToFile(label)
+    const mapping: {
+      apolloLockupId: string
+      osmosisLockupId: string
+      vaultAddr: string
+      accountId: string
+    }[] = []
 
-    // Test basic user flows
-    if (config.testActions) {
-      await deployer.grantCreditLines()
-      await deployer.setupOraclePrices()
-      await deployer.setupRedBankMarkets()
+    logs.forEach((log) => {
+      const positionCreatedEvent = log.events.find(
+        (e) => e.type === 'wasm-unlocking_position_created',
+      )!
 
-      const rover = await deployer.newUserRoverClient(config.testActions)
-      await rover.createCreditAccount()
-      await rover.deposit()
-      await rover.borrow()
-      await rover.swap()
-      await rover.repay()
-      await rover.withdraw()
+      const apolloLockupId = positionCreatedEvent.attributes.find(
+        (a) => a.key === 'lockup_id',
+      )!.value
 
-      const vaultConfig = config.vaults[0]
-      const info = await rover.getVaultInfo(vaultConfig)
-      await rover.zap(info.tokens.base_token)
-      await rover.vaultDeposit(vaultConfig, info)
-      if (info.lockup) {
-        await rover.vaultRequestUnlock(vaultConfig, info)
-      } else {
-        await rover.vaultWithdraw(vaultConfig, info)
-        await rover.unzap(info.tokens.base_token)
-      }
-      await rover.refundAllBalances()
-    }
+      const osmosisLockupId = log.events
+        .find((e) => e.type === 'begin_unlock')!
+        .attributes.find((a) => a.key === 'period_lock_id')!.value
 
-    // If multisig is set, transfer ownership from deployer to multisig
-    if (config.multisigAddr) {
-      await deployer.updateCreditManagerOwner()
-      await deployer.updateSwapperOwner()
-    }
+      const vaultAddr = log.events
+        .find((e) => e.type === 'wasm-apollo/vaults/execute_unlock')!
+        .attributes.find((a) => a.key === '_contract_address')!.value
+
+      const accountId = log.events
+        .find((e) => e.type === 'wasm-position_changed')!
+        .attributes.find((a) => a.key === 'account_id')!.value
+
+      mapping.push({
+        apolloLockupId,
+        osmosisLockupId,
+        vaultAddr,
+        accountId,
+      })
+    })
+
+    console.log(JSON.stringify(mapping, null, 2))
 
     printYellow('COMPLETE')
   } catch (e) {
     printRed(e)
-  } finally {
-    await deployer.saveStorage()
   }
 }
