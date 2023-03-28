@@ -1037,6 +1037,7 @@ dependencies = [
  "mars-rover",
  "mars-swapper-mock",
  "mars-zapper-mock",
+ "semver",
 ]
 
 [[package]]
@@ -1105,9 +1106,9 @@ dependencies = [
 
 [[package]]
 name = "mars-owner"
-version = "1.0.0"
+version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a5644a8b047a0d64d04706414805872f35439755e057431152dd36e6f369be24"
+checksum = "8ca010da465b4a5ea7274f59132d22b7c10765295c73d5744add2c1fea6c5e38"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
@@ -1613,9 +1614,9 @@ dependencies = [
 
 [[package]]
 name = "semver"
-version = "1.0.16"
+version = "1.0.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "58bc9567378fc7690d6b2addae4e60ac2eeea07becb2c64b9f218b53865cba2a"
+checksum = "bebd363326d05ec3e2f532ab7660680f3b02130d780c299bca73469d521bc0ed"
 
 [[package]]
 name = "serde"

@@ -25,7 +25,7 @@ fn _only_owner_can_update_config() {
             proposed_new_minter: Some(bad_guy.to_string()),
         },
     );
-    assert_err(res, ContractError::OwnerError(NotOwner {}));
+    assert_err(res, ContractError::Owner(NotOwner {}));
 
     // Attempt updating directly from the NFT contract
     mock.app

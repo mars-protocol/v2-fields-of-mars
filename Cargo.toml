@@ -43,6 +43,7 @@ itertools         = "0.10.5"
 osmosis-std       = "0.14.0"
 osmosis-test-tube = "14.1.1"
 schemars          = "0.8.11"
+semver            = "1.0.17"
 serde             = { version = "1.0.152", default-features = false, features = ["derive"] }
 thiserror         = "1.0.38"
 
@@ -52,7 +53,7 @@ cw-vault-standard   = { version = "0.2.0", features = ["lockup", "force-unlock"]
 mars-health         = { version = "1.0.0", path = "./packages/health" }
 mars-osmosis        = { git = "https://github.com/mars-protocol/red-bank", rev = "d2a4b12f21344f1b572c0b2f75da585a4d2cc003" }
 mars-red-bank-types = "1.0.0"
-mars-owner          = "1.0.0"
+mars-owner          = { version = "1.1.0", features = ["emergency-owner"] }
 mars-rover          = { version = "1.0.0", path = "./packages/rover" }
 
 # contracts
