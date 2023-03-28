@@ -140,7 +140,7 @@ pub fn migrate(deps: DepsMut, _env: Env, _msg: Empty) -> ContractResult<Response
         version,
     } = get_contract_version(deps.storage)?;
 
-    if storage_contract != CONTRACT_NAME {
+    if storage_contract != format!("crates.io:{CONTRACT_NAME}") {
         return Err(Migration("Can only upgrade from same type".to_string()));
     }
 

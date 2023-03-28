@@ -48,7 +48,7 @@ fn _raises_on_invalid_config() {
     let mut mock = MockEnv::new().build().unwrap();
 
     let res = mock.update_nft_config(
-        &Addr::unchecked(mock.query_config().owner.unwrap()),
+        &Addr::unchecked(mock.query_config().ownership.owner.unwrap()),
         NftConfigUpdates {
             max_value_for_burn: None,
             proposed_new_minter: Some("".to_string()),
@@ -68,7 +68,7 @@ fn _update_config_works_with_full_config() {
     let new_max_value = Some(Uint128::new(1122334455));
     let new_proposed = Some("spiderman_12345".to_string());
     mock.update_nft_config(
-        &Addr::unchecked(mock.query_config().owner.unwrap()),
+        &Addr::unchecked(mock.query_config().ownership.owner.unwrap()),
         NftConfigUpdates {
             max_value_for_burn: new_max_value,
             proposed_new_minter: new_proposed.clone(),
@@ -91,7 +91,7 @@ fn _update_config_works_with_some_config() {
 
     let new_proposed = Some("spiderman_12345".to_string());
     mock.update_nft_config(
-        &Addr::unchecked(mock.query_config().owner.unwrap()),
+        &Addr::unchecked(mock.query_config().ownership.owner.unwrap()),
         NftConfigUpdates {
             max_value_for_burn: None,
             proposed_new_minter: new_proposed.clone(),

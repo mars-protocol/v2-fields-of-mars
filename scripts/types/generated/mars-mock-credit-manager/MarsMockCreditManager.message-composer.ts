@@ -38,6 +38,7 @@ import {
   VaultUnlockingPosition,
   ArrayOfString,
   ConfigResponse,
+  OwnerResponse,
   ArrayOfCoin,
   Positions,
   DebtAmount,

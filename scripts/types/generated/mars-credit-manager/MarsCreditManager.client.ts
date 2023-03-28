@@ -52,6 +52,7 @@ import {
   VaultUnlockingPosition,
   ArrayOfString,
   ConfigResponse,
+  OwnerResponse,
   ArrayOfCoin,
   HealthResponse,
   Positions,
