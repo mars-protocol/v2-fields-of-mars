@@ -152,7 +152,7 @@ pub fn migrate(deps: DepsMut, _env: Env, _msg: Empty) -> ContractResult<Response
         .map_err(|_| StdError::generic_err("new version parse err"))?;
 
     if storage_version >= new_version {
-        return Err(Migration("Cannot upgrade from a newer version".to_string()));
+        return Err(Migration("Cannot upgrade from the current or newer version".to_string()));
     }
 
     set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
