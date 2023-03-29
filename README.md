@@ -164,10 +164,10 @@ yarn deploy:osmosis:mainnet
 
 ### Deployment
 
-- osmosis-1 (TBD)
+- [osmosis-1](./scripts/deploy/addresses/osmosis-1-mainnet.json)
 - [osmo-test-4 with multisig owner](./scripts/deploy/addresses/osmo-test-4-testnet-multisig.json)
 - [osmo-test-4 with deployer owner](./scripts/deploy/addresses/osmo-test-4-testnet-deployer-owner.json)
-- 
+
 ## License
 
 Contents of this repository are open source under [GNU General Public License v3](./LICENSE) or later.
