@@ -23,10 +23,8 @@ const MAX_LIMIT: u32 = 30;
 const DEFAULT_LIMIT: u32 = 10;
 
 pub fn query_config(deps: Deps) -> ContractResult<ConfigResponse> {
-    let owner_res = OWNER.query(deps.storage)?;
     Ok(ConfigResponse {
-        owner: owner_res.owner,
-        proposed_new_owner: owner_res.proposed,
+        ownership: OWNER.query(deps.storage)?,
         account_nft: ACCOUNT_NFT.may_load(deps.storage)?.map(|addr| addr.to_string()),
         red_bank: RED_BANK.load(deps.storage)?.address().into(),
         oracle: ORACLE.load(deps.storage)?.address().into(),

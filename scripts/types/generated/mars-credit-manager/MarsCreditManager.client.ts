@@ -23,6 +23,7 @@ import {
   Action,
   ActionAmount,
   VaultPositionType,
+  EmergencyUpdate,
   OwnerUpdate,
   CallbackMsg,
   Addr,
@@ -51,6 +52,7 @@ import {
   VaultUnlockingPosition,
   ArrayOfString,
   ConfigResponse,
+  OwnerResponse,
   ArrayOfCoin,
   HealthResponse,
   Positions,
@@ -327,6 +329,11 @@ export interface MarsCreditManagerInterface extends MarsCreditManagerReadOnlyInt
     memo?: string,
     funds?: Coin[],
   ) => Promise<ExecuteResult>
+  emergencyConfigUpdate: (
+    fee?: number | StdFee | 'auto',
+    memo?: string,
+    funds?: Coin[],
+  ) => Promise<ExecuteResult>
   updateOwner: (
     fee?: number | StdFee | 'auto',
     memo?: string,
@@ -364,6 +371,7 @@ export class MarsCreditManagerClient
     this.createCreditAccount = this.createCreditAccount.bind(this)
     this.updateCreditAccount = this.updateCreditAccount.bind(this)
     this.updateConfig = this.updateConfig.bind(this)
+    this.emergencyConfigUpdate = this.emergencyConfigUpdate.bind(this)
     this.updateOwner = this.updateOwner.bind(this)
     this.updateNftConfig = this.updateNftConfig.bind(this)
     this.callback = this.callback.bind(this)
@@ -428,6 +436,22 @@ export class MarsCreditManagerClient
         update_config: {
           updates,
         },
+      },
+      fee,
+      memo,
+      funds,
+    )
+  }
+  emergencyConfigUpdate = async (
+    fee: number | StdFee | 'auto' = 'auto',
+    memo?: string,
+    funds?: Coin[],
+  ): Promise<ExecuteResult> => {
+    return await this.client.execute(
+      this.sender,
+      this.contractAddress,
+      {
+        emergency_config_update: {},
       },
       fee,
       memo,

@@ -24,6 +24,7 @@ import {
   Action,
   ActionAmount,
   VaultPositionType,
+  EmergencyUpdate,
   OwnerUpdate,
   CallbackMsg,
   Addr,
@@ -52,6 +53,7 @@ import {
   VaultUnlockingPosition,
   ArrayOfString,
   ConfigResponse,
+  OwnerResponse,
   ArrayOfCoin,
   HealthResponse,
   Positions,
@@ -534,6 +536,26 @@ export function useMarsCreditManagerUpdateOwnerMutation(
 ) {
   return useMutation<ExecuteResult, Error, MarsCreditManagerUpdateOwnerMutation>(
     ({ client, msg, args: { fee, memo, funds } = {} }) => client.updateOwner(msg, fee, memo, funds),
+    options,
+  )
+}
+export interface MarsCreditManagerEmergencyConfigUpdateMutation {
+  client: MarsCreditManagerClient
+  args?: {
+    fee?: number | StdFee | 'auto'
+    memo?: string
+    funds?: Coin[]
+  }
+}
+export function useMarsCreditManagerEmergencyConfigUpdateMutation(
+  options?: Omit<
+    UseMutationOptions<ExecuteResult, Error, MarsCreditManagerEmergencyConfigUpdateMutation>,
+    'mutationFn'
+  >,
+) {
+  return useMutation<ExecuteResult, Error, MarsCreditManagerEmergencyConfigUpdateMutation>(
+    ({ client, msg, args: { fee, memo, funds } = {} }) =>
+      client.emergencyConfigUpdate(msg, fee, memo, funds),
     options,
   )
 }

@@ -1,15 +1,18 @@
 use cosmwasm_std::{
-    entry_point, to_binary, Binary, Deps, DepsMut, Env, MessageInfo, Reply, Response,
+    entry_point, to_binary, Binary, Deps, DepsMut, Empty, Env, MessageInfo, Reply, Response,
+    StdError,
 };
-use cw2::set_contract_version;
+use cw2::{get_contract_version, set_contract_version, ContractVersion};
 use mars_health::HealthResponse;
 use mars_rover::{
     adapters::vault::VAULT_REQUEST_REPLY_ID,
-    error::{ContractError, ContractResult},
+    error::{ContractError, ContractError::Migration, ContractResult},
     msg::{ExecuteMsg, InstantiateMsg, QueryMsg},
 };
+use semver::Version;
 
 use crate::{
+    emergency_update::emergency_config_update,
     execute::{create_credit_account, dispatch_actions, execute_callback},
     health::compute_health,
     instantiate::store_config,
@@ -60,6 +63,7 @@ pub fn execute(
             account_id,
             actions,
         } => dispatch_actions(deps, env, info, &account_id, &actions),
+        ExecuteMsg::EmergencyConfigUpdate(update) => emergency_config_update(deps, info, update),
     }
 }
 
@@ -127,4 +131,34 @@ pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> ContractResult<Binary> {
         } => to_binary(&estimate_withdraw_liquidity(deps, lp_token)?),
     };
     res.map_err(Into::into)
+}
+
+#[entry_point]
+pub fn migrate(deps: DepsMut, _env: Env, _msg: Empty) -> ContractResult<Response> {
+    let ContractVersion {
+        contract: storage_contract,
+        version,
+    } = get_contract_version(deps.storage)?;
+
+    if storage_contract != format!("crates.io:{CONTRACT_NAME}") {
+        return Err(Migration("Can only upgrade from same type".to_string()));
+    }
+
+    let storage_version = version
+        .parse::<Version>()
+        .map_err(|_| StdError::generic_err("storage version parse err"))?;
+    let new_version = CONTRACT_VERSION
+        .parse::<Version>()
+        .map_err(|_| StdError::generic_err("new version parse err"))?;
+
+    if storage_version >= new_version {
+        return Err(Migration("Cannot upgrade from the current or newer version".to_string()));
+    }
+
+    set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
+
+    Ok(Response::new()
+        .add_attribute("action", "migrate")
+        .add_attribute("from_version", version)
+        .add_attribute("to_version", CONTRACT_VERSION))
 }

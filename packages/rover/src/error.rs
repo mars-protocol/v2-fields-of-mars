@@ -26,7 +26,7 @@ pub enum ContractError {
     },
 
     #[error("{0}")]
-    OwnerError(#[from] OwnerError),
+    Owner(#[from] OwnerError),
 
     #[error("{0} is not an available coin to request")]
     CoinNotAvailable(String),
@@ -79,6 +79,9 @@ pub enum ContractError {
         debt_coin: Coin,
         request_coin: Coin,
     },
+
+    #[error("Migration error: {0}")]
+    Migration(String),
 
     #[error("Issued incorrect action for vault type")]
     MismatchedVaultType,
