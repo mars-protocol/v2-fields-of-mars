@@ -1,10 +1,12 @@
 use cosmwasm_std::{coin, Addr, Decimal, Uint128};
 use cw_multi_test::{BasicApp, Executor};
 use mars_mock_oracle::msg::{CoinPrice, InstantiateMsg as OracleInstantiateMsg};
+use mars_mock_red_bank::msg::InstantiateMsg as RedBankInstantiateMsg;
 use mars_mock_vault::msg::InstantiateMsg as VaultInstantiateMsg;
 use mars_rover::{
     adapters::{
         oracle::{OracleBase, OracleUnchecked},
+        red_bank::RedBankUnchecked,
         swap::SwapperBase,
         vault::{VaultBase, VaultConfig},
         zapper::ZapperBase,
@@ -17,8 +19,8 @@ use mars_rover::{
 };
 
 use crate::helpers::{
-    assert_err, locked_vault_info, mock_oracle_contract, mock_vault_contract, uatom_info,
-    uosmo_info, MockEnv,
+    assert_err, locked_vault_info, mock_oracle_contract, mock_red_bank_contract,
+    mock_vault_contract, uatom_info, uosmo_info, MockEnv,
 };
 
 pub mod helpers;
@@ -34,6 +36,7 @@ fn only_owner_can_update_config() {
             account_nft: None,
             allowed_coins: None,
             oracle: None,
+            red_bank: None,
             max_close_factor: None,
             max_unlocking_positions: None,
             swapper: None,
@@ -64,6 +67,7 @@ fn raises_on_invalid_vaults_config() {
             account_nft: None,
             allowed_coins: None,
             oracle: None,
+            red_bank: None,
             max_close_factor: None,
             max_unlocking_positions: None,
             swapper: None,
@@ -90,6 +94,7 @@ fn raises_on_invalid_vaults_config() {
             account_nft: None,
             allowed_coins: None,
             oracle: None,
+            red_bank: None,
             max_close_factor: None,
             max_unlocking_positions: None,
             swapper: None,
@@ -115,6 +120,7 @@ fn raises_on_invalid_vaults_config() {
             account_nft: None,
             allowed_coins: None,
             oracle: None,
+            red_bank: None,
             max_close_factor: None,
             max_unlocking_positions: None,
             swapper: None,
@@ -142,6 +148,7 @@ fn update_config_works_with_full_config() {
     let new_vault_configs = vec![deploy_vault(&mut mock.app)];
     let new_allowed_coins = vec!["uosmo".to_string()];
     let new_oracle = deploy_new_oracle(&mut mock.app);
+    let new_red_bank = deploy_new_red_bank(&mut mock.app);
     let new_zapper = ZapperBase::new("new_zapper".to_string());
     let new_close_factor = Decimal::from_atomics(32u128, 2).unwrap();
     let new_unlocking_max = Uint128::new(321);
@@ -153,6 +160,7 @@ fn update_config_works_with_full_config() {
             account_nft: Some(new_nft_contract.to_string()),
             allowed_coins: Some(new_allowed_coins.clone()),
             oracle: Some(new_oracle.clone()),
+            red_bank: Some(new_red_bank.clone()),
             max_close_factor: Some(new_close_factor),
             max_unlocking_positions: Some(new_unlocking_max),
             swapper: Some(new_swapper.clone()),
@@ -192,6 +200,9 @@ fn update_config_works_with_full_config() {
 
     assert_eq!(&new_config.oracle, new_oracle.address());
     assert_ne!(new_config.oracle, original_config.oracle);
+
+    assert_eq!(&new_config.red_bank, new_red_bank.address());
+    assert_ne!(new_config.red_bank, original_config.red_bank);
 
     assert_eq!(&new_config.zapper, new_zapper.address());
     assert_ne!(new_config.zapper, original_config.zapper);
@@ -342,6 +353,7 @@ fn raises_on_duplicate_vault_configs() {
             account_nft: None,
             allowed_coins: None,
             oracle: None,
+            red_bank: None,
             max_close_factor: None,
             max_unlocking_positions: None,
             swapper: None,
@@ -391,6 +403,7 @@ fn raises_on_duplicate_coin_configs() {
                 "uosmo".to_string(),
             ]),
             oracle: None,
+            red_bank: None,
             max_close_factor: None,
             max_unlocking_positions: None,
             swapper: None,
@@ -431,6 +444,23 @@ fn deploy_new_oracle(app: &mut BasicApp) -> OracleUnchecked {
         )
         .unwrap();
     OracleUnchecked::new(addr.to_string())
+}
+
+fn deploy_new_red_bank(app: &mut BasicApp) -> RedBankUnchecked {
+    let contract_code_id = app.store_code(mock_red_bank_contract());
+    let addr = app
+        .instantiate_contract(
+            contract_code_id,
+            Addr::unchecked("red_bank_contract_owner"),
+            &RedBankInstantiateMsg {
+                coins: vec![],
+            },
+            &[],
+            "mock-red-bank",
+            None,
+        )
+        .unwrap();
+    RedBankUnchecked::new(addr.to_string())
 }
 
 fn deploy_vault(app: &mut BasicApp) -> VaultInstantiateConfig {

@@ -69,6 +69,7 @@ pub struct ConfigUpdates {
     pub allowed_coins: Option<Vec<String>>,
     pub vault_configs: Option<Vec<VaultInstantiateConfig>>,
     pub oracle: Option<OracleUnchecked>,
+    pub red_bank: Option<RedBankUnchecked>,
     pub max_close_factor: Option<Decimal>,
     pub max_unlocking_positions: Option<Uint128>,
     pub swapper: Option<SwapperUnchecked>,
