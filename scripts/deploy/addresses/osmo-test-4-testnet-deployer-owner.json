@@ -1,7 +1,1 @@
-{
-  "mockVault": "osmo15nd3aw2z7u26qnjny3hkt396ppwwtvfy4xjm8p8mudj5g698hvqqnasa5t",
-  "swapper": "osmo1svc92mfvgfredd56ut83sy68vwzvd5nxu7844ljmlsrsxa8d8lssw7kd4x",
-  "zapper": "osmo12ytfzqw96fwa8mrnxufdpwczm683gcg4pa2q56jwxuuxfq529xcshe06ew",
-  "creditManager": "osmo1dzk4y3s9am6773sglhfc60nstz09c3gy978h2jka6wre5z4hlavq4pcwk0",
-  "accountNft": "osmo16wwckvccarltl4mlnjhw3lcj3v59yglhldgw36ldkknmjavqyaasgcessw"
-}
+{"mockVault":"osmo1pvw6nqu3sextc4xku6rvd3zvr94zh6uhur5gwdf36hfuzl4kkqrs6jxq36","swapper":"osmo1fz4fy2ku3rhcs3k89zecv4vjm2qyjqf4r0lmfu8j3jfr2um8p35qxlep0a","zapper":"osmo14vx9hf69uc0g8vw69zvw6d3ueu9932a0fxeuvkgy5wqj4vvzy0rstrhxm6","creditManager":"osmo1uf9muj43dyxsufz5zc3z2rz26rrjxxqgvwpgvdyglvmqfensvz3smaz72g","accountNft":"osmo1l3t6laep7msh5zean5zl2fa4m9yk8nuctwk26qgl5m8c8xhyjrdq68xazs"}
