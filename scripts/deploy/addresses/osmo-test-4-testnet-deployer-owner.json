@@ -1,1 +1,7 @@
-{"mockVault":"osmo17kceapz2padhg4u0jn5jcz7g727xmvlkfetnac3n5trt45rdv6aqjx07c0","swapper":"osmo19ukn75k4k04809utlwwrznq9dcxvxjhfxv2kh2fy9m7k7nazk6nsle47uj","zapper":"osmo1wjlqnd26pzvetyzgg8adj8y967c6d4f70f80av92cr9qcv86km3qu90tzk","creditManager":"osmo13pyg20kk48jad38x2cl7uejryjnyk03j9npgcm0ttvl55xyuar8sr6xlst","accountNft":"osmo1k8wmkpveumhzj2sp7kedhn39zm9f6726laqwflxjf4wygzgvzj0qnhjaef"}
+{
+  "mockVault": "osmo17kceapz2padhg4u0jn5jcz7g727xmvlkfetnac3n5trt45rdv6aqjx07c0",
+  "swapper": "osmo19ukn75k4k04809utlwwrznq9dcxvxjhfxv2kh2fy9m7k7nazk6nsle47uj",
+  "zapper": "osmo1wjlqnd26pzvetyzgg8adj8y967c6d4f70f80av92cr9qcv86km3qu90tzk",
+  "creditManager": "osmo13pyg20kk48jad38x2cl7uejryjnyk03j9npgcm0ttvl55xyuar8sr6xlst",
+  "accountNft": "osmo1k8wmkpveumhzj2sp7kedhn39zm9f6726laqwflxjf4wygzgvzj0qnhjaef"
+}
