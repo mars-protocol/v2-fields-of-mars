@@ -152,7 +152,7 @@ For Typescript testnet deployment with the multisig address being the owner and 
 ```shell
 cd scripts
 yarn install
-yarn deploy:osmosis:testnet-multisig
+yarn deploy:osmosis-testnet-multisig
 ```
 
 For mainnet:
